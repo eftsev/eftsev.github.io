@@ -198,5 +198,24 @@ var json_Monuments_3 = {
         "coordinates": [37.622658, 55.752419]
       }
     },
+	         {
+      "type": "Feature",
+      "properties": {
+        "Name": "The Atomium",
+        "Country": "Belgium",
+        "City": "Brussels",
+        "Flag": "10",
+        "Description": "10",
+        "Image": "10",
+        "Audio": "10",
+        "Video": "10",
+        "3D Model": "10",
+        "QR Code": "10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [4.341521,  50.894915]
+      }
+    },
   ]
 };
