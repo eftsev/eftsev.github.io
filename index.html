@@ -986,6 +986,8 @@ if (feature && feature.properties && feature.properties['Name']) {
         playMonumentSound('sounds/ScotlandHover.mp3', 'Edinburgh Castle');
     } else if (feature.properties['Name'] === 'St. Basil\'s Cathedral') {
         playMonumentSound('sounds/RussiaHover.mp3', 'St. Basil\'s Cathedral');
+    } else if (feature.properties['Name'] === 'The Atomium') { // 🟢 Add this line for Atomium
+        playMonumentSound('sounds/AtomiumHover.mp3', 'The Atomium');
     }
 }
     });
@@ -1046,7 +1048,7 @@ function showMonumentInfoOverlay(feature) {
     window._lastMonumentNameClicked = feature.properties.Name; // <-- Add this line at the top
 
     // --- Mappings (same as index3 - Copy.html) ---
-    const imageMap = { 0: 'images/BIGBEN.jpg', 1: 'images/GATE.png', 2: 'images/ROME.jpg', 3: 'images/PARIS.png', 4: 'images/PARTHENON.jpg', 5: 'images/PISA.jpg', 6: 'images/THESSALONIKI.jpg', 7: 'images/ISTANBUL.jpg', 8: 'images/EDINBURGH.jpg', 9: 'images/STBASIL.jpg' };
+    const imageMap = { 0: 'images/BIGBEN.jpg', 1: 'images/GATE.png', 2: 'images/ROME.jpg', 3: 'images/PARIS.png', 4: 'images/PARTHENON.jpg', 5: 'images/PISA.jpg', 6: 'images/THESSALONIKI.jpg', 7: 'images/ISTANBUL.jpg', 8: 'images/EDINBURGH.jpg', 9: 'images/STBASIL.jpg', 10: 'images/ATOMIUM.jpg' }; // 🟢 Add Atomium image
     const audioImgMap = {
         0: 'images/LondonRadio.png',
         1: 'images/BerlinRadio.png',
@@ -1057,7 +1059,8 @@ function showMonumentInfoOverlay(feature) {
         6: 'images/ThessalonikiRadio.png',
         7: 'images/IstanbulRadio.png',
         8: 'images/ScotlandRadio.png',
-        9: 'images/RussiaRadio.png'
+        9: 'images/RussiaRadio.png',
+        10: 'images/AtomiumRadio.png' // 🟢 Add this line for Atomium
     };
     const audioSrcMap = {
         0: 'sounds/LondonAudioGuide.mp3',
@@ -1069,7 +1072,8 @@ function showMonumentInfoOverlay(feature) {
         6: 'sounds/ThessalonikiAudioGuide.mp3',
         7: 'sounds/IstanbulAudioGuide.mp3',
         8: 'sounds/ScotlandAudioGuide.mp3',
-        9: 'sounds/RussiaAudioGuide.mp3'
+        9: 'sounds/RussiaAudioGuide.mp3',
+        10: 'sounds/AtomiumAudioGuide.mp3' // 🟢 Add this line for Atomium
     };
 
     const videoMap = { // 🟢 Add this mapping
@@ -1082,7 +1086,8 @@ function showMonumentInfoOverlay(feature) {
         6: 'https://ia601203.us.archive.org/20/items/athens-video/ThessalonikiVideo.mp4',
         7: 'https://ia601203.us.archive.org/20/items/athens-video/IstanbulVideo.mp4',
         8: 'https://ia600202.us.archive.org/13/items/EDINBURGHVideo/EDINBURGHVideo.mp4',
-        9: 'https://ia600901.us.archive.org/16/items/russia_202506/RUSSIA.ia.mp4'
+        9: 'https://ia600901.us.archive.org/16/items/russia_202506/RUSSIA.ia.mp4',
+        10: 'https://ia801507.us.archive.org/35/items/atomuum-video/AtomuumVideo.mp4'
     };
 
     const modelMap = {
@@ -1095,10 +1100,11 @@ function showMonumentInfoOverlay(feature) {
         6: 'https://raw.githubusercontent.com/eftsev/3dmodels/main/model1/THESSALONIKI.glb',
         7: 'https://raw.githubusercontent.com/eftsev/3dmodels/main/model1/ISTANBUL.glb',
         8: 'sketchfab',
-        9: 'https://raw.githubusercontent.com/eftsev/3dmodels/main/model1/RUSSIA.glb'
+        9: 'https://raw.githubusercontent.com/eftsev/3dmodels/main/model1/RUSSIA.glb',
+        10: 'https://raw.githubusercontent.com/eftsev/3dmodels/main/model1/ATOMIUM.glb'
 
     };
-    const qrMap = { 0: 'images/LondonQR.png', 1: 'images/BerlinQR.png', 2: 'images/ColosseumQR.png', 3: 'images/ParisQR.png', 4: 'images/AthensQR.png', 5: 'images/PisaQR.png', 6: 'images/ThessalonikiQR.png', 7: 'images/IstanbulQR.png', 8: 'images/ScotlandQR.png', 9: 'images/RussiaQR.png' };
+    const qrMap = { 0: 'images/LondonQR.png', 1: 'images/BerlinQR.png', 2: 'images/ColosseumQR.png', 3: 'images/ParisQR.png', 4: 'images/AthensQR.png', 5: 'images/PisaQR.png', 6: 'images/ThessalonikiQR.png', 7: 'images/IstanbulQR.png', 8: 'images/ScotlandQR.png', 9: 'images/RussiaQR.png', 10: 'images/AtomiumQR.png' };
 
 // --- Info Tab ---
 const country = feature.properties.Country || '';
@@ -1114,6 +1120,7 @@ const flagMap = {
     'Turkey': 'TURKEY.jpg',
     'Scotland': 'SCOTLAND.jpg',
     'Russia': 'RUSSIA.png',
+    'Belgium': 'BELGIUM.png',
 
 
 
@@ -1213,6 +1220,13 @@ const descriptionMap = {
     St. Basil’s is most famous for its vibrant, onion-shaped domes, each uniquely decorated with colorful patterns and textures. The design combines traditional Russian architectural elements with influences from Byzantine and Asian styles, creating a highly distinctive silhouette that has become a symbol of Moscow and Russia itself.<br><br>
     Originally painted in more subdued tones, the cathedral received its vivid color scheme in later centuries. Inside, it features narrow corridors, steep stairways, and richly decorated chapels with frescoes, icons, and ornamental details.<br><br>
     Today, St. Basil’s functions as a museum and stands as a UNESCO World Heritage Site. It is widely recognized as a masterpiece of Russian medieval architecture and remains a cultural and national icon.
+        </div>`,
+            10: `<div style="text-align: justify; font-family: Arial; font-size: 18px;">
+    <strong style="font-size: 24px;">The Atomium</strong><br><br>
+    The Atomium is a unique architectural structure and museum located in Brussels, Belgium. It was originally built for Expo 58, the 1958 Brussels World’s Fair, as the centerpiece of the exhibition. Designed by engineer André Waterkeyn and architects André and Jean Polak, the structure represents an iron crystal magnified 165 billion times.<br><br>
+    Standing 102 meters tall, the Atomium consists of nine stainless steel-clad spheres, each 18 meters in diameter, connected by tubes housing escalators and stairs. The spheres are arranged to reflect the geometric pattern of a unit cell of iron, symbolizing scientific progress and the optimism of the atomic age. Three of the spheres are not accessible to the public, while the others house exhibitions, event spaces, and a panoramic viewing deck.<br><br>
+    Originally intended as a temporary structure, the Atomium was preserved due to its popularity and has since become an enduring landmark of Brussels. It underwent extensive renovation in the early 2000s to modernize its facilities.<br><br>
+    Today, the Atomium functions as both a museum and a cultural venue. It hosts permanent and temporary exhibitions focused on science, design, and history, while the top sphere offers a 360-degree view of Brussels and its surroundings. The Atomium remains a powerful symbol of mid-20th century innovation, European unity, and Belgium’s place in the modern scientific world.
         </div>`
 };
 const descValue = feature.properties.Description;
