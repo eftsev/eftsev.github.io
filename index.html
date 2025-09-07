@@ -2688,11 +2688,6 @@ map.on('click', function(e) {
 
 // ...existing code...
 
-function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-           window.innerWidth <= 768;
-}
-
 function universalScale() {
     if (isMobileDevice()) {
         // Mobile: Reset any scaling and use responsive design
@@ -2717,23 +2712,29 @@ function universalScale() {
         }, 100);
         
     } else {
-        // Desktop: Enhanced tiered scaling system
+        // Desktop: Enhanced tiered scaling system with 2560x1440 as design base
         const actualWidth = window.innerWidth;
         const actualHeight = window.innerHeight;
         
         let targetWidth, targetHeight, fixedScale;
         
-        // Tier 1: 4K and above (2160p+) - scales naturally until 1440p
-        if (actualHeight > 1440) {
-            targetWidth = 3840;
-            targetHeight = 2160;
+        // Tier 1: 4K and above (2160p+) - scales naturally from 2560x1440 base
+        if (actualHeight > 1600) {
+            targetWidth = 2560;  // Your design base
+            targetHeight = 1440; // Your design base
             fixedScale = null; // Natural scaling
         }
-        // Tier 2: 1440p range - scales naturally until 1200p
-        else if (actualHeight > 1200 && actualHeight <= 1440) {
-            targetWidth = 2560;
-            targetHeight = 1440;
+        // Tier 1.5: 1600p range (like MacBook Pro 16") - scales naturally from 2560x1440
+        else if (actualHeight > 1440 && actualHeight <= 1600) {
+            targetWidth = 2560;  // Your design base
+            targetHeight = 1440; // Your design base
             fixedScale = null; // Natural scaling
+        }
+        // Tier 2: Native 1440p - perfect fit, no scaling needed
+        else if (actualHeight > 1200 && actualHeight <= 1440) {
+            targetWidth = 2560;  // Your design base
+            targetHeight = 1440; // Your design base
+            fixedScale = null; // Natural scaling (will be 1.0 for 2560x1440)
         }
         // Tier 3: 1200p breakpoint - fixed scale
         else if (actualHeight > 1080 && actualHeight <= 1200) {
@@ -2778,13 +2779,13 @@ function universalScale() {
             // Use fixed scale at breakpoints
             finalScale = fixedScale;
         } else {
-            // Natural scaling within tier
+            // Natural scaling within tier from your 2560x1440 design base
             const scaleX = actualWidth / targetWidth;
             const scaleY = actualHeight / targetHeight;
             finalScale = Math.min(scaleX, scaleY);
             // Ensure minimum and maximum scale bounds
             finalScale = Math.max(finalScale, 0.3);
-            finalScale = Math.min(finalScale, 1.2); // Prevent over-scaling on very large screens
+            finalScale = Math.min(finalScale, 1.5); // Allow slight upscaling for very large screens
         }
         
         document.documentElement.style.transform = `scale(${finalScale})`;
@@ -2802,6 +2803,7 @@ function universalScale() {
         }, 100);
     }
 }
+
 
 // Apply scaling on load and resize
 window.addEventListener('load', () => {
