@@ -2815,19 +2815,26 @@ function universalScale() {
         }
         // Tier 16: 666p (1024x666) - fixed scale
         else if (actualHeight > 640 && actualHeight <= 666) {
-            fixedScale = 0.52;
+            fixedScale = 0.48;
             targetWidth = 1024;
             targetHeight = 666;
         }
         // Tier 17: 640p (1024x640) - fixed scale
         else if (actualHeight > 600 && actualHeight <= 640) {
-            fixedScale = 0.5;
+            fixedScale = 0.45;
             targetWidth = 1024;
             targetHeight = 640;
         }
         // Tier 18: 600p (960x600) - fixed scale
         else if (actualHeight <= 600) {
-            fixedScale = 0.48;
+            fixedScale = 0.42;
+            targetWidth = 960;
+            targetHeight = 600;
+        }
+            
+        // Tier 19: 600p (800x600) - fixed scale
+        else if (actualHeight <= 600) {
+            fixedScale = 0.39;
             targetWidth = 960;
             targetHeight = 600;
         }
