@@ -2723,52 +2723,112 @@ function universalScale() {
         
         let targetWidth, targetHeight, fixedScale;
         
-        // Tier 1: 4K and above (2160p+) - scales naturally until 1440p
+        // Tier 1: 4K and above (2160p+) - scales naturally
         if (actualHeight > 1440) {
             targetWidth = 3840;
             targetHeight = 2160;
             fixedScale = null; // Natural scaling
         }
-        // Tier 2: 1440p range - scales naturally until 1200p
-        else if (actualHeight > 1200 && actualHeight <= 1440) {
+        // Tier 2: 1440p range - scales naturally
+        else if (actualHeight > 1332 && actualHeight <= 1440) {
             targetWidth = 2560;
             targetHeight = 1440;
             fixedScale = null; // Natural scaling
         }
-        // Tier 3: 1200p breakpoint - fixed scale
-        else if (actualHeight > 1080 && actualHeight <= 1200) {
+        // Tier 3: 1332p (2048x1332) - fixed scale
+        else if (actualHeight > 1280 && actualHeight <= 1332) {
+            fixedScale = 0.85;
+            targetWidth = 2048;
+            targetHeight = 1332;
+        }
+        // Tier 4: 1280p (2048x1280) - fixed scale
+        else if (actualHeight > 1200 && actualHeight <= 1280) {
+            fixedScale = 0.82;
+            targetWidth = 2048;
+            targetHeight = 1280;
+        }
+        // Tier 5: 1200p (1920x1200) - fixed scale
+        else if (actualHeight > 1112 && actualHeight <= 1200) {
             fixedScale = 0.8;
             targetWidth = 1920;
             targetHeight = 1200;
         }
-        // Tier 4: 1080p breakpoint - fixed scale
-        else if (actualHeight > 900 && actualHeight <= 1080) {
+        // Tier 6: 1112p (1710x1112) - fixed scale
+        else if (actualHeight > 1080 && actualHeight <= 1112) {
+            fixedScale = 0.78;
+            targetWidth = 1710;
+            targetHeight = 1112;
+        }
+        // Tier 7: 1080p breakpoint - fixed scale
+        else if (actualHeight > 1068 && actualHeight <= 1080) {
             fixedScale = 0.75;
             targetWidth = 1920;
             targetHeight = 1080;
         }
-        // Tier 5: 900p range - fixed scale
-        else if (actualHeight > 768 && actualHeight <= 900) {
+        // Tier 8: 1068p (1710x1068) - fixed scale
+        else if (actualHeight > 956 && actualHeight <= 1068) {
+            fixedScale = 0.72;
+            targetWidth = 1710;
+            targetHeight = 1068;
+        }
+        // Tier 9: 956p (1470x956) - fixed scale
+        else if (actualHeight > 918 && actualHeight <= 956) {
+            fixedScale = 0.7;
+            targetWidth = 1470;
+            targetHeight = 956;
+        }
+        // Tier 10: 918p (1470x918) - fixed scale
+        else if (actualHeight > 900 && actualHeight <= 918) {
+            fixedScale = 0.68;
+            targetWidth = 1470;
+            targetHeight = 918;
+        }
+        // Tier 11: 900p range - fixed scale
+        else if (actualHeight > 832 && actualHeight <= 900) {
             fixedScale = 0.65;
             targetWidth = 1600;
             targetHeight = 900;
         }
-        // Tier 6: 768p breakpoint - fixed scale
-        else if (actualHeight > 720 && actualHeight <= 768) {
+        // Tier 12: 832p (1280x832) - fixed scale
+        else if (actualHeight > 800 && actualHeight <= 832) {
+            fixedScale = 0.62;
+            targetWidth = 1280;
+            targetHeight = 832;
+        }
+        // Tier 13: 800p (1280x800) - fixed scale
+        else if (actualHeight > 768 && actualHeight <= 800) {
             fixedScale = 0.6;
+            targetWidth = 1280;
+            targetHeight = 800;
+        }
+        // Tier 14: 768p breakpoint - fixed scale
+        else if (actualHeight > 720 && actualHeight <= 768) {
+            fixedScale = 0.58;
             targetWidth = 1366;
             targetHeight = 768;
         }
-        // Tier 7: 720p breakpoint - fixed scale  
-        else if (actualHeight > 600 && actualHeight <= 720) {
+        // Tier 15: 720p breakpoint - fixed scale  
+        else if (actualHeight > 666 && actualHeight <= 720) {
             fixedScale = 0.55;
             targetWidth = 1280;
             targetHeight = 720;
         }
-        // Tier 8: Below 720p - even smaller scale
-        else {
-            fixedScale = 0.35;
+        // Tier 16: 666p (1024x666) - fixed scale
+        else if (actualHeight > 640 && actualHeight <= 666) {
+            fixedScale = 0.52;
             targetWidth = 1024;
+            targetHeight = 666;
+        }
+        // Tier 17: 640p (1024x640) - fixed scale
+        else if (actualHeight > 600 && actualHeight <= 640) {
+            fixedScale = 0.5;
+            targetWidth = 1024;
+            targetHeight = 640;
+        }
+        // Tier 18: 600p (960x600) - fixed scale
+        else if (actualHeight <= 600) {
+            fixedScale = 0.48;
+            targetWidth = 960;
             targetHeight = 600;
         }
         
